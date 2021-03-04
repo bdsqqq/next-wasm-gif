@@ -8,6 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@ffmpeg/core": "^0.8.5",
+    "@ffmpeg/ffmpeg": "^0.9.7",
     "autoprefixer": "^10.0.4",
     "next": "latest",
     "postcss": "^8.1.10",
