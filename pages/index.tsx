@@ -11,8 +11,10 @@ export default function Home() {
     setReady(true);
   };
 
+  const IS_COMPATIBLE = typeof SharedArrayBuffer === "function";
+
   useEffect(() => {
-    load();
+    IS_COMPATIBLE && load();
   }, []);
 
   const convertToGif = async () => {
@@ -43,7 +45,18 @@ export default function Home() {
   return (
     <Container>
       <AnimatePresence exitBeforeEnter>
-        {!video ? (
+        {!IS_COMPATIBLE ? (
+          <Band key="band00" gridless id="supports">
+            <p className="text-2xl">
+              Unfortunatelly your browser doesn't support a feature called
+              "SharedArrayBuffer" that is crucial for this app.
+              <br />
+              <br />
+              We recommend using this app with the latest desktop version of
+              Firefox or Chrome
+            </p>
+          </Band>
+        ) : !video ? (
           <Band
             key="band01"
             headline={{ bold: "01", thin: "Upload your video" }}
