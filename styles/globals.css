@@ -31,6 +31,12 @@ body {
   @apply box-border;
 }
 
+@layer components {
+  .btn {
+    @apply p-2 bg-igor-500 hover:bg-igor-700 focus:bg-igor-700 text-igor-light transition rounded shadow-2xl;
+  }
+}
+
 @layer utilities {
   @variants responsive {
     .t-writing-mode-vlr {
