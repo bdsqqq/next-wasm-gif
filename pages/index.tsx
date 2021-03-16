@@ -16,6 +16,7 @@ export default function Home() {
   }, []);
 
   const convertToGif = async () => {
+    setIsProcessing(true);
     // if the video exists, write the file to memory
     video && ffmpeg.FS("writeFile", "file", await fetchFile(video));
 
@@ -42,16 +43,12 @@ export default function Home() {
   return (
     <Container>
       <AnimatePresence exitBeforeEnter>
-        {!ready ? (
-          <Band key="band00" gridless id="loading">
-            Loading
-          </Band>
-        ) : !video ? (
+        {!video ? (
           <Band
             key="band01"
             headline={{ bold: "01", thin: "Upload your video" }}
           >
-            <div className="border border-dashed border-gray-500 relative">
+            <div className="border border-dashed border-igor-500 relative">
               <input
                 type="file"
                 onChange={(e) => setVideo(e.target.files?.item(0))}
@@ -67,6 +64,10 @@ export default function Home() {
               </div>
             </div>
           </Band>
+        ) : !ready ? (
+          <Band key="band00" gridless id="loading">
+            Loading
+          </Band>
         ) : !gif ? (
           <Band key="band02" headline={{ bold: "02", thin: "Preview it" }}>
             <div className="flex flex-col md:flex-row">
@@ -80,14 +81,7 @@ export default function Home() {
                 )}
               </div>
               <div className="flex flex-row-reverse md:flex-col justify-between items-start py-4 md:py-0 md:px-6 md:w-1/3">
-                <button
-                  disabled={isProcessing}
-                  className="btn text-lg disabled:opacity-50"
-                  onClick={() => {
-                    setIsProcessing(true);
-                    convertToGif();
-                  }}
-                >
+                <button className="btn text-lg" onClick={convertToGif}>
                   Convert it!
                 </button>
 
@@ -96,6 +90,10 @@ export default function Home() {
                 </button>
               </div>
             </div>
+          </Band>
+        ) : isProcessing ? (
+          <Band key="band00" gridless id="loading">
+            Loading
           </Band>
         ) : (
           <Band key="band03" headline={{ bold: "03", thin: "Done!" }}>
