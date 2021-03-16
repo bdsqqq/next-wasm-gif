@@ -14,9 +14,9 @@ const Footer: React.FC<FooterProps> = ({ dark }) => {
       }`}
     >
       <nav>
-        <div className="flex space-x-4 mb-4">
+        <div className="flex justify-center space-x-4 mb-4">
           <ExternalLink
-            href="https://github.com/bdsqqq"
+            href="https://github.com/bdsqqq/next-wasm-gif"
             aClassList={linkClassList}
           >
             <span className="sr-only">Github</span>
@@ -32,29 +32,17 @@ const Footer: React.FC<FooterProps> = ({ dark }) => {
               </g>
             </svg>
           </ExternalLink>
-          <ExternalLink
-            href="mailto:igorbedesqui@gmail.com"
-            aClassList={linkClassList}
-          >
-            <span className="sr-only">Email</span>
-            <svg className="h-5 w-5" viewBox="0 0 24 24">
-              <g
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                <polyline points="22,6 12,13 2,6" />
-              </g>
-            </svg>
-          </ExternalLink>
         </div>
         <div className="space-x-3">
-          <Link href="/example" passHref>
-            <a className={linkClassList}>/example</a>
-          </Link>
+          <p>
+            Made with ♥ by{" "}
+            <a
+              className="cursor-pointer opacity-80 focus:opacity-100 hover:opacity-100 focus:underline hover:underline transition-all"
+              href="https://igorbedesqui.com/"
+            >
+              Igor Bedesqui
+            </a>
+          </p>
         </div>
       </nav>
     </footer>
@@ -63,5 +51,4 @@ const Footer: React.FC<FooterProps> = ({ dark }) => {
 
 export default Footer;
 
-import Link from "next/link";
 import ExternalLink from "./ExternalLink";
