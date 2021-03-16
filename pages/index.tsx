@@ -3,6 +3,7 @@ const ffmpeg = createFFmpeg({ log: true });
 export default function Home() {
   const [ready, setReady] = useState(false);
   const [video, setVideo] = useState<File | null | undefined>();
+  const [isProcessing, setIsProcessing] = useState(false);
   const [gif, setGif] = useState<string | undefined>();
 
   const load = async () => {
@@ -16,10 +17,10 @@ export default function Home() {
 
   const convertToGif = async () => {
     // if the video exists, write the file to memory
-    video && ffmpeg.FS("writeFile", "test.mp4", await fetchFile(video));
+    video && ffmpeg.FS("writeFile", "file", await fetchFile(video));
 
     // Run the FFMpeg command
-    await ffmpeg.run("-i", "test.mp4", "-t", "2", "-f", "gif", "out.gif");
+    await ffmpeg.run("-i", "file", "-t", "2", "-f", "gif", "out.gif");
 
     // Read the result
     const data = ffmpeg.FS("readFile", "out.gif");
@@ -29,9 +30,11 @@ export default function Home() {
       new Blob([data.buffer], { type: "image/gif" })
     );
     setGif(url);
+    setIsProcessing(false);
   };
 
   function reset() {
+    setIsProcessing(false);
     setGif(undefined);
     setVideo(undefined);
   }
@@ -66,8 +69,8 @@ export default function Home() {
           </Band>
         ) : !gif ? (
           <Band key="band02" headline={{ bold: "02", thin: "Preview it" }}>
-            <div className="flex">
-              <div className="w-2/3 h-auto">
+            <div className="flex flex-col md:flex-row">
+              <div className="md:w-2/3 h-auto">
                 {video && (
                   <video
                     controls
@@ -76,26 +79,39 @@ export default function Home() {
                   />
                 )}
               </div>
-              <div className="flex flex-col justify-between items-center w-1/3">
-                <button onClick={convertToGif}>Convert</button>
+              <div className="flex flex-row-reverse md:flex-col justify-between items-start py-4 md:py-0 md:px-6 md:w-1/3">
+                <button
+                  disabled={isProcessing}
+                  className="btn text-lg disabled:opacity-50"
+                  onClick={() => {
+                    setIsProcessing(true);
+                    convertToGif();
+                  }}
+                >
+                  Convert it!
+                </button>
 
-                <button onClick={reset}>Hej do</button>
+                <button className="btn" onClick={reset}>
+                  ⟵ Go back
+                </button>
               </div>
             </div>
           </Band>
         ) : (
           <Band key="band03" headline={{ bold: "03", thin: "Done!" }}>
             <div className="w-full h-auto">
-              <div className="flex">
-                <div>
+              <div className="flex flex-col md:flex-row">
+                <div className="md:w-2/3 h-auto">
                   <img src={gif} width="100%" />
                 </div>
-                <div className="flex flex-col justify-between items-center w-1/3">
-                  <a href={gif} download="hej">
-                    Download
+                <div className="flex flex-row-reverse md:flex-col justify-between items-start py-4 md:py-0 md:px-6 md:w-1/3">
+                  <a className="btn text-lg" href={gif} download="hej">
+                    Download it!
                   </a>
 
-                  <button onClick={reset}>Hej do</button>
+                  <button className="btn" onClick={reset}>
+                    Convert another video! <span>⭯</span>
+                  </button>
                 </div>
               </div>
             </div>
