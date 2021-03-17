@@ -1,5 +1,4 @@
 interface BandPropsBasic {
-  dark?: boolean;
   padless?: boolean;
   cta?:
     | {
@@ -34,7 +33,6 @@ interface BandGridless extends BandPropsBasic {
 type BandProps = BandWithGrid | BandGridless;
 
 const Band: React.FC<BandProps> = ({
-  dark,
   gridless,
   padless,
   id,
@@ -61,11 +59,8 @@ const Band: React.FC<BandProps> = ({
       exit={{ y: "-100vh" }}
       transition={{ duration: 0.3 }}
       id={bandId.replace(/\s+/g, "-").toLowerCase()}
-      className={`w-full  min-h-screen
-          ${!padless && "py-16"}
-          ${
-            dark ? "bg-igor-500 text-igor-light" : "bg-igor-light text-igor-500"
-          }`}
+      className={`w-full  min-h-screen bg-igor-light text-igor-500
+          ${!padless && "py-16"}`}
     >
       <div
         className={` mx-auto ${!padless && "max-w-6xl px-8 md:px-16 "}
@@ -78,11 +73,7 @@ const Band: React.FC<BandProps> = ({
               <span className="font-bold text-md md:text-7xl md:t-writing-mode-vlr">
                 {headline?.bold}
               </span>
-              <div
-                className={`md:inline-block md:w-12 font-light text-opacity-80 text-md md:text-lg align-top md:break-normal ${
-                  dark ? "text-igor-light" : "text-igor-500"
-                }`}
-              >
+              <div className="md:inline-block md:w-12 font-light text-opacity-80 text-md md:text-lg align-top md:break-normal text-igor-500">
                 {headline?.thin}
               </div>
             </h2>
@@ -94,11 +85,7 @@ const Band: React.FC<BandProps> = ({
         )}
       </div>
       {cta && (
-        <div
-          className={`flex justify-end w-full text-sm md:text-lg text-right mt-6 pr-8 md:pr-16 ${
-            dark ? " text-igor-light" : " text-igor-500"
-          }`}
-        >
+        <div className="flex justify-end w-full text-sm md:text-lg text-right mt-6 pr-8 md:pr-16 text-igor-500">
           <motion.div
             className="cursor-pointer px-4 pb-0 select-none"
             variants={a}
