@@ -1,18 +1,8 @@
-interface FooterProps {
-  dark?: boolean;
-}
-
-const Footer: React.FC<FooterProps> = ({ dark }) => {
-  const linkClassList = `text-sm text-opacity-80 hover:text-opacity-100 focus:text-opacity-100 transition-all ${
-    dark ? "text-igor-light" : " text-igor-500"
-  }`;
-
+const Footer: React.FC = () => {
+  const linkClassList =
+    "text-sm text-opacity-80 hover:text-opacity-100 focus:text-opacity-100 transition-all text-igor-500";
   return (
-    <footer
-      className={`flex flex-col items-center pb-8 ${
-        dark ? "bg-igor-500" : "bg-igor-light"
-      }`}
-    >
+    <footer className="flex flex-col items-center pb-8 bg-igor-light">
       <nav>
         <div className="flex justify-center space-x-4 mb-4">
           <ExternalLink
