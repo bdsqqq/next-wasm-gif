@@ -63,7 +63,7 @@ export default function Home() {
               Chrome.
             </p>
           </Band>
-        ) : !error ? (
+        ) : error ? (
           <Band key="band00" gridless id="supports">
             <p className="text-2xl">
               An unexpected error occured while loading the necessary assets,
