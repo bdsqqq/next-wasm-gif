@@ -1,4 +1,4 @@
-interface BandPropsBasic {
+type BandPropsBasic = {
   padless?: boolean;
   cta?:
     | {
@@ -13,7 +13,7 @@ interface BandPropsBasic {
         child: React.ReactNode;
         text?: never;
       };
-}
+};
 
 interface BandWithGrid extends BandPropsBasic {
   headline: {

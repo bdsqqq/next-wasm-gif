@@ -48,12 +48,11 @@ export default function Home() {
         {!IS_COMPATIBLE ? (
           <Band key="band00" gridless id="supports">
             <p className="text-2xl">
-              Unfortunatelly your browser doesn't support a feature called
-              "SharedArrayBuffer" that is crucial for this app.
+              Unfortunatelly your browser doesn't support a feature that is
+              crucial for this app.
               <br />
               <br />
-              We recommend using this app with the latest desktop version of
-              Firefox or Chrome
+              We recommend using the latest desktop version of Firefox or Chrome
             </p>
           </Band>
         ) : !video ? (
