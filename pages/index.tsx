@@ -6,12 +6,14 @@ export default function Home() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [gif, setGif] = useState<string | undefined>();
 
+  const [IS_COMPATIBLE] = useState(typeof SharedArrayBuffer === "function");
+
   const load = async () => {
     await ffmpeg.load();
     setReady(true);
   };
 
-  const IS_COMPATIBLE = typeof SharedArrayBuffer === "function";
+  //const IS_COMPATIBLE = typeof SharedArrayBuffer === "function";
 
   useEffect(() => {
     IS_COMPATIBLE && load();
