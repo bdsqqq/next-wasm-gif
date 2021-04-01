@@ -5,11 +5,16 @@ export default function Home() {
   const [video, setVideo] = useState<File | null | undefined>();
   const [isProcessing, setIsProcessing] = useState(false);
   const [gif, setGif] = useState<string | undefined>();
-
   const [IS_COMPATIBLE] = useState(typeof SharedArrayBuffer === "function");
+  const [error, setError] = useState();
 
   const load = async () => {
-    await ffmpeg.load();
+    try {
+      await ffmpeg.load();
+    } catch (e) {
+      console.error(e);
+      setError(e);
+    }
     setReady(true);
   };
 
@@ -54,7 +59,19 @@ export default function Home() {
               crucial for this app.
               <br />
               <br />
-              We recommend using the latest desktop version of Firefox or Chrome
+              We recommend using the latest desktop version of Firefox or
+              Chrome.
+            </p>
+          </Band>
+        ) : !error ? (
+          <Band key="band00" gridless id="supports">
+            <p className="text-2xl">
+              An unexpected error occured while loading the necessary assets,
+              try refreshing your page.
+              <br />
+              <br />
+              We recommend using the latest desktop version of Firefox or
+              Chrome.
             </p>
           </Band>
         ) : !video ? (
